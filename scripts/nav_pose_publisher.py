@@ -102,7 +102,7 @@ class NavPosePublisher(object):
       rospy.loginfo("Service call failed: " + str(e))
       time.sleep(1)
 
-    new_data = (self.last_navpose != current_navpose)
+    new_data = (self.last_navpose.fix != current_navpose.fix or self.last_navpose.odom != current_navpose.odom or self.last_navpose.heading != current_navpose.heading  )
     if nav_pose_response != None and new_data:
           # Get current navpose
         # Get current heading in degrees
