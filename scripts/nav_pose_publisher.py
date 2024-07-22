@@ -102,11 +102,13 @@ class NavPosePublisher(object):
       rospy.loginfo("Service call failed: " + str(e))
       time.sleep(1)
 
-    if nav_pose_response != None:
+    if current_navpose != None:
       if self.last_navpose == None:
         pub_new_data = True
       else:
-        pub_new_data = (self.last_navpose.fix != current_navpose.fix or self.last_navpose.odom != current_navpose.odom or self.last_navpose.heading != current_navpose.heading  )
+        #rospy.loginfo(current_navpose)
+        pub_new_data = (self.last_navpose.fix != current_navpose.fix or self.last_navpose.odom \
+              != current_navpose.odom or self.last_navpose.heading != current_navpose.heading  )
       if pub_new_data:
           # Get current navpose
         # Get current heading in degrees
@@ -161,7 +163,7 @@ class NavPosePublisher(object):
         self.navpose_location_wgs84_pub.publish(current_location_wgs84_geo)
         self.navpose_geoid_height_pub.publish(current_geoid_height)
 
-        self.last_navpose = nav_pose_response
+        self.last_navpose = current_navpose
 
   #######################
   # Node Cleanup Function
