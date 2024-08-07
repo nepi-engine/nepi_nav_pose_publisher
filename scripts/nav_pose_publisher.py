@@ -119,37 +119,37 @@ class NavPosePublisher(object):
         current_orientation_enu_degs = Vector3()
         current_orientation_enu_degs.x = values[0]
         current_orientation_enu_degs.y = values[1]
-        current_orientation_enu_degs.y = values[2]
+        current_orientation_enu_degs.z = values[2]
         # Get current orientation vector (roll, pitch, yaw) in degrees ned frame +-180
         values = nepi_nav.get_navpose_orientation_ned_degs(nav_pose_response)
         current_orientation_ned_degs = Vector3()
         current_orientation_ned_degs.x = values[0]
         current_orientation_ned_degs.y = values[1]
-        current_orientation_ned_degs.y = values[2]
+        current_orientation_ned_degs.z = values[2]
         # Get current position vector (x, y, z) in meters enu frame
         values = nepi_nav.get_navpose_position_enu_m(nav_pose_response)
         current_position_enu_m = Vector3()
         current_position_enu_m.x = values[0]
         current_position_enu_m.y = values[1]
-        current_position_enu_m.y = values[2]
+        current_position_enu_m.z = values[2]
         # Get current position vector (x, y, z) in meters ned frame
         values = nepi_nav.get_navpose_position_ned_m(nav_pose_response)
         current_position_ned_m = Vector3()
         current_position_ned_m.x = values[0]
         current_position_ned_m.y = values[1]
-        current_position_ned_m.y = values[2]
+        current_position_ned_m.z = values[2]
         # Get current location vector (lat, long, alt) in geopoint data with WGS84 height
         values =  nepi_nav.get_navpose_location_wgs84_geo(nav_pose_response)  
         current_location_wgs84_geo = Vector3()
         current_location_wgs84_geo.x = values[0]
         current_location_wgs84_geo.y = values[1]
-        current_location_wgs84_geo.y = values[2]
+        current_location_wgs84_geo.z = values[2]
         # Get current location vector (lat, long, alt) in geopoint data with AMSL height
         values =  nepi_nav.get_navpose_location_amsl_geo(nav_pose_response)
         current_location_amsl_geo = Vector3()
         current_location_amsl_geo.x = values[0]
         current_location_amsl_geo.y = values[1]
-        current_location_amsl_geo.y = values[2]
+        current_location_amsl_geo.z = values[2]
         # Get current geoid heihgt
         current_geoid_height =  nepi_nav.get_navpose_geoid_height(nav_pose_response)
         # Publish new current navpose data
