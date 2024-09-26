@@ -127,10 +127,9 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(
+# include_directories(
 # include
-  ${catkin_INCLUDE_DIRS}
-)
+#  ${catkin_INCLUDE_DIRS}
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -203,6 +202,25 @@ install(DIRECTORY etc/
   USE_SOURCE_PERMISSIONS
 )
 
+## Mark other files for installation (e.g. launch and bag files, etc.)
+set( NEPI_APP_LAUNCH_FOLDER 
+  # Must hard-coded 
+  /opt/nepi/ros/share/nepi_apps
+)
+
+install(DIRECTORY launch/
+  DESTINATION ${NEPI_APP_LAUNCH_FOLDER}
+)
+
+## Mark other files for installation (e.g. launch and bag files, etc.)
+set( NEPI_RUI_FOLDER 
+  # Must hard-coded 
+  /opt/nepi/nepi_rui/src/rui_webserver/rui-app/src
+)
+
+install(DIRECTORY rui/
+  DESTINATION ${NEPI_RUI_FOLDER}
+)
 #############
 ## Testing ##
 #############

@@ -54,7 +54,10 @@ class NavPosePublisher(object):
   ### Node Initialization
   NAVPOSE_PUB_RATE_HZ = 10
   def __init__(self):
-    rospy.loginfo("Starting Initialization Processes")
+    node_name = "app_nav_pose_publisher"
+    rospy.init_node(name=node_name)
+
+    rospy.loginfo("Nav Pose Publisher: Starting Initialization Processes")
     ## Initialize Class Variables
     self.last_navpose = None
     ## Define Class Namespaces
@@ -84,6 +87,7 @@ class NavPosePublisher(object):
     rospy.Timer(rospy.Duration(self.navpose_pub_interval_sec), self.navpose_get_publish_callback)
     ## Initiation Complete
     rospy.loginfo("Initialization Complete")
+    rospy.spin()
 
   #######################
   ### Node Methods
@@ -175,12 +179,9 @@ class NavPosePublisher(object):
 #########################################
 # Main
 #########################################
-def main():
-    rospy.init_node("nav_pose_publisher")
-    node = NavPosePublisher()
-    rospy.spin()
+
 
 if __name__ == '__main__':
-    main()
+    NavPosePublisher()
 
 
