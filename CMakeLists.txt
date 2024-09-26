@@ -19,9 +19,9 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   tf
   std_msgs
-  nav_msgs
   sensor_msgs
   geometry_msgs
+  nav_msgs
   nepi_ros_interfaces
 )
 
@@ -114,11 +114,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES automation_mgr
-   CATKIN_DEPENDS nepi_ros_interfaces
-#  DEPENDS CATKIN_DEPENDS sensor_msgs nepi_ros_interfaces nepi_edge_sdk_base 
+catkin_package(CATKIN_DEPENDS
+
 )
 
 ###########
