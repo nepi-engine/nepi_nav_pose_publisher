@@ -9,13 +9,20 @@
 #
 
 APP_NAME = 'Nav_Pose_Publisher' # Use in display menus
-DESCRIPTION = 'Application for publishing the current NEPI nav pose solution in different standard formats'
-PKG_NAME = 'nepi_app_navpose_publisher'
-APP_FILE = 'nav_pose_publisher.py'
-NODE_NAME = 'app_nav_pose_publisher'
-RUI_FILES = []
-RUI_MAIN_FILE = ''
-RUI_MAIN_CLASS = ''
-RUI_MENU_NAME = ''
+FILE_TYPE = 'APP'
+APP_DICT = dict(
+    description = 'Application for publishing the current NEPI nav pose solution in different standard formats',
+    pkg_name = 'nepi_app_navpose_publisher',
+    config_file = 'app_nav_pose_publisher.yaml',
+    app_file = 'nav_pose_publisher.py',
+    node_name = 'app_nav_pose_publisher'
+)
+RUI_DICT = dict(
+    rui_menu_name = 'None', # RUI menu name or "None" if no rui support
+    rui_files = ['None'],
+    rui_main_file ='None',
+    rui_main_class = 'None'
+)
+
 
 
