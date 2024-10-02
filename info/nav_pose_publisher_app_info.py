@@ -14,8 +14,8 @@ APP_DICT = dict(
     description = 'Application for publishing the current NEPI nav pose solution in different standard formats',
     pkg_name = 'nepi_app_navpose_publisher',
     config_file = 'app_nav_pose_publisher.yaml',
-    app_file = 'nav_pose_publisher.py',
-    node_name = 'app_nav_pose_publisher'
+    app_file = 'nav_pose_publisher_node.py',
+    node_name = 'nav_pose_publisher_app'
 )
 RUI_DICT = dict(
     rui_menu_name = 'None', # RUI menu name or "None" if no rui support

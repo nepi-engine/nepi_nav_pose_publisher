@@ -34,7 +34,9 @@ import math
 import time
 import sys
 import tf
-from nepi_edge_sdk_base import nepi_ros 
+
+from nepi_edge_sdk_base import nepi_ros
+from nepi_edge_sdk_base import nepi_msg
 from nepi_edge_sdk_base import nepi_nav
 
 from std_msgs.msg import Bool, String, Float32
@@ -50,14 +52,18 @@ from nepi_ros_interfaces.srv import NavPoseQuery, NavPoseQueryRequest
 
 class NavPosePublisher(object):
 
+  NAVPOSE_PUB_RATE_HZ = 10
   #######################
   ### Node Initialization
-  NAVPOSE_PUB_RATE_HZ = 10
+  DEFAULT_NODE_NAME = "nav_pose_publisher_app" # Can be overwitten by luanch command
   def __init__(self):
-    node_name = "app_nav_pose_publisher"
-    rospy.init_node(name=node_name)
-
-    rospy.loginfo("Nav Pose Publisher: Starting Initialization Processes")
+    #### APP NODE INIT SETUP ####
+    nepi_ros.init_node(name= self.DEFAULT_NODE_NAME)
+    self.node_name = nepi_ros.get_node_name()
+    self.base_namespace = nepi_ros.get_base_namespace()
+    nepi_msg.createMsgPublishers(self)
+    nepi_msg.publishMsgInfo(self,"Starting Initialization Processes")
+    ##############################
     ## Initialize Class Variables
     self.last_navpose = None
     ## Define Class Namespaces
@@ -65,9 +71,9 @@ class NavPosePublisher(object):
     ## Define Class Services Calls
     NEPI_BASE_NAMESPACE = nepi_ros.get_base_namespace()
     self.NAVPOSE_SERVICE_NAME = NEPI_BASE_NAMESPACE + "nav_pose_query"
-    rospy.loginfo("Nav Pose Publisher looking for nav_pose service at " + self.NAVPOSE_SERVICE_NAME)
+    nepi_msg.publishMsgInfo(self,"looking for nav_pose service at " + self.NAVPOSE_SERVICE_NAME)
     rospy.wait_for_service(self.NAVPOSE_SERVICE_NAME)
-    rospy.loginfo("Nav Pose Publisher found nav_pose service")
+    nepi_msg.publishMsgInfo(self,"found nav_pose service")
     ## Create Class Sevices    
     ## Create Class Publishers
     self.navpose_navpose_pub = rospy.Publisher("~navpose", NavPose, queue_size=1, latch = True)
@@ -84,10 +90,10 @@ class NavPosePublisher(object):
     ## Start Node Processes
 
     # Start navpose data publishers
-    rospy.Timer(rospy.Duration(self.navpose_pub_interval_sec), self.navpose_get_publish_callback)
+    nepi_ros.timer(nepi_ros.duration(self.navpose_pub_interval_sec), self.navpose_get_publish_callback)
     ## Initiation Complete
-    rospy.loginfo("Initialization Complete")
-    rospy.spin()
+    nepi_msg.publishMsgInfo(self,"Initialization Complete")
+    nepi_ros.spin()
 
   #######################
   ### Node Methods
@@ -100,21 +106,19 @@ class NavPosePublisher(object):
       nav_pose_response = None
       get_navpose_service = rospy.ServiceProxy(self.NAVPOSE_SERVICE_NAME, NavPoseQuery)
       nav_pose_response = get_navpose_service(NavPoseQueryRequest())
-      #rospy.loginfo(nav_pose_response)
       current_navpose = nav_pose_response.nav_pose
     except rospy.ServiceException as e:
-      rospy.loginfo("Service call failed: " + str(e))
+      nepi_msg.publishMsgInfo(self,"Service call failed: " + str(e))
       time.sleep(1)
 
     if current_navpose != None:
       if self.last_navpose == None:
         pub_new_data = True
       else:
-        #rospy.loginfo(current_navpose)
         pub_new_data = (self.last_navpose.fix != current_navpose.fix or self.last_navpose.odom \
               != current_navpose.odom or self.last_navpose.heading != current_navpose.heading  )
       if pub_new_data:
-          # Get current navpose
+        # Get current navpose
         # Get current heading in degrees
         current_heading_deg = nepi_nav.get_navpose_heading_deg(nav_pose_response)
         # Get current orientation vector (roll, pitch, yaw) in degrees enu frame
@@ -173,7 +177,7 @@ class NavPosePublisher(object):
   # Node Cleanup Function
   
   def cleanup_actions(self):
-    rospy.loginfo("Shutting down: Executing script cleanup actions")
+    nepi_msg.publishMsgInfo(self,"Shutting down: Executing script cleanup actions")
 
 
 #########################################
