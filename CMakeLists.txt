@@ -168,7 +168,7 @@ catkin_package(CATKIN_DEPENDS
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
  catkin_install_python(PROGRAMS
-   scripts/nav_pose_publisher.py
+   scripts/nav_pose_publisher_node.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
