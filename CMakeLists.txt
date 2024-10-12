@@ -59,18 +59,14 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+ add_message_files(FILES
+    NavPosePub.msg
+ )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+ add_service_files(FILES
+    NavPosePubQuery.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -80,10 +76,14 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+   DEPENDENCIES
+   std_msgs  # Or other packages containing msgs
+   sensor_msgs
+   geometry_msgs
+   nav_msgs
+   nepi_ros_interfaces
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -114,8 +114,12 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(CATKIN_DEPENDS
-
+catkin_package(
+   CATKIN_DEPENDS std_msgs
+   	message_runtime
+	sensor_msgs
+	nepi_ros_interfaces
+#  DEPENDS CATKIN_DEPENDS sensor_msgs nepi_ros_interfaces nepi_edge_sdk_base 
 )
 
 ###########
