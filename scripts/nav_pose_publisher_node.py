@@ -41,6 +41,7 @@ import tf
 import yaml
 
 from nepi_edge_sdk_base import nepi_ros
+from nepi_edge_sdk_base import nepi_save
 from nepi_edge_sdk_base import nepi_msg
 from nepi_edge_sdk_base import nepi_nav
 
@@ -271,7 +272,7 @@ class NavPosePublisher(object):
         np_dict['position_xyz_meters'] =  {'x_m': float(pos_values[0]),'y_m': float(pos_values[1]),'z_m': float(pos_values[2])}
         np_dict['location_geo'] =  {'latitude': float(geo_values[0]),'longitude': float(geo_values[1]),'altitude_m': float(geo_values[2])}
         #nepi_msg.publishMsgWarn(self,"New nav_pose entry: " + str(np_dict))
-        self.save_dict2file(self.node_name,'navpose',np_dict,ros_timestamp)
+        nepi_save.save_dict2file(self,self.node_name,'navpose',np_dict,ros_timestamp)
 
     # Setup nex update check
     self.last_navpose = current_navpose
@@ -283,18 +284,6 @@ class NavPosePublisher(object):
     nepi_ros.timer(nepi_ros.duration(1), self.navpose_get_publish_callback, oneshot = True)
 
 
-  def save_dict2file(self,node_name,data_product,data_dict,ros_timestamp):
-      if self.save_data_if is not None:
-        saving_is_enabled = self.save_data_if.data_product_saving_enabled(data_product)
-        snapshot_enabled = self.save_data_if.data_product_snapshot_enabled(data_product)
-        if data_dict is not None:
-            if (self.save_data_if.data_product_should_save(data_product) or snapshot_enabled):
-                full_path_filename = self.save_data_if.get_full_path_filename(nepi_ros.get_datetime_str_from_stamp(ros_timestamp), 
-                                                                                        node_name + "_" + data_product, 'yaml')
-                if os.path.isfile(full_path_filename) is False:
-                    with open(full_path_filename, 'w') as f:
-                        yaml.dump(data_dict, f)
-                self.save_data_if.data_product_snapshot_reset(data_product)
 
   #######################
   # Node Cleanup Function

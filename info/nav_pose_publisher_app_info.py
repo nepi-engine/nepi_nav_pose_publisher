@@ -13,6 +13,7 @@ FILE_TYPE = 'APP'
 APP_DICT = dict(
     description = 'Application for publishing the current NEPI nav pose solution in different standard formats',
     pkg_name = 'nepi_app_navpose_publisher',
+    group_name = 'NAVPOSE',
     config_file = 'app_nav_pose_publisher.yaml',
     app_file = 'nav_pose_publisher_node.py',
     node_name = 'nav_pose_publisher_app'
