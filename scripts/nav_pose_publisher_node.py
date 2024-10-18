@@ -272,7 +272,7 @@ class NavPosePublisher(object):
         np_dict['position_xyz_meters'] =  {'x_m': float(pos_values[0]),'y_m': float(pos_values[1]),'z_m': float(pos_values[2])}
         np_dict['location_geo'] =  {'latitude': float(geo_values[0]),'longitude': float(geo_values[1]),'altitude_m': float(geo_values[2])}
         #nepi_msg.publishMsgWarn(self,"New nav_pose entry: " + str(np_dict))
-        nepi_save.save_dict2file(self,self.node_name,'navpose',np_dict,ros_timestamp)
+        nepi_save.save_dict2file(self,'navpose',np_dict,ros_timestamp)
 
     # Setup nex update check
     self.last_navpose = current_navpose
