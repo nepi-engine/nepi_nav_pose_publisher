@@ -254,9 +254,15 @@ class NavPosePublisher(object):
         current_navpose.set_alt_frame = set_alt_frame
         current_navpose.geoid_height_meters = current_geoid_height
         current_navpose.heading_deg = current_heading_deg
-        current_navpose.orientation_rpy_degs = current_orientation_degs
-        current_navpose.position_xyz_meters = current_position_m
-        current_navpose.location_geo = current_location_geo
+        current_navpose.roll_deg = current_orientation_degs.x
+        current_navpose.pitch_deg = current_orientation_degs.y
+        current_navpose.yaw_deg = current_orientation_degs.z
+        current_navpose.x_m = current_position_m.x
+        current_navpose.y_m = current_position_m.y
+        current_navpose.z_m = current_position_m.z
+        current_navpose.lat = current_location_geo.x
+        current_navpose.long = current_location_geo.y
+        current_navpose.alt_m = current_location_geo.z
 
         if not rospy.is_shutdown():
           self.navpose_pub.publish(current_navpose)
