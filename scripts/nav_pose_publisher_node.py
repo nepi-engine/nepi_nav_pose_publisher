@@ -1,32 +1,19 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2024 Numurus, LLC <https://www.numurus.com>.
+# Copyright (c) 2024 Numurus <https://www.numurus.com>.
 #
-# This file is part of nepi-engine
-# (see https://github.com/nepi-engine).
+# This file is part of nepi applications (nepi_apps) repo
+# (see https://https://github.com/nepi-engine/nepi_apps)
 #
-# License: 3-clause BSD, see https://opensource.org/licenses/BSD-3-Clause
+# License: nepi applications are licensed under the "Numurus Software License", 
+# which can be found at: <https://numurus.com/wp-content/uploads/Numurus-Software-License-Terms.pdf>
 #
-
-# Sample NEPI Process Script.
-# 1. Calls the NEPI ROS's nav_pose_mgr/query_data_products service
-# 2. Gets and publishes current navpose solution data at set rate to new topics:
-#  navpose = NEPI NavPose Message
-#  heading_deg = Float32 (heading in degrees)
-#  orientation_ned_degs = [Float32, Float32, Float32] (roll, pitch, yaw in +-180 degrees NED frame)  
-#  orientation_enu_degs = [Float32, Float32, Float32] (roll, pitch, yaw in +-180 degrees ENU frame)  
-#  position_ned_m = [Float32, Float32, Float32] (x, y, z in meters NED frame)  
-#  position_enu_m = [Float32, Float32, Float32] (x, y, z in meters ENU frame)  
-#  location_amsl_geo = [Float32, Float32, Float32] (lat, long, altitude in meters AMSL height)
-#  location_wgs84_geo = [Float32, Float32, Float32] (lat, long, altitude in meters WGS-84 Ellipoid height)
-#  geoid_height_m = Float32 (meters geoid height added to AMSL height to convert to WGS84 height)
+# Redistributions in source code must retain this top-level comment block.
+# Plagiarizing this software to sidestep the license obligations is illegal.
 #
-# Orientation and Position data are published in both ROS standard ENU reference frame
-# and a robot standard NED reference frame for convenience. Learn more about these frames and converting them at:
-# https://github.com/mavlink/mavros/issues/216
-#
-# Location Geo Altitudes are published in both meters above mean sea level (AMSL)and meters above the WGS-84 Ellipsoid (WGS84)
-
+# Contact Information:
+# ====================
+# - mailto:nepi@numurus.com
 
 import os
 # ROS namespace setup
